@@ -19,7 +19,7 @@ int main()
     window.setVerticalSyncEnabled(true);
 
     // Open the application font and pass it to the Effect class
-    const auto font = sf::Font::openFromFile("resources/tuffy.ttf").value();
+    const auto font = sf::Font::createFromFile("resources/tuffy.ttf").value();
 
     // Create the mouse position text
     sf::Text mousePosition(font, "", 20);
