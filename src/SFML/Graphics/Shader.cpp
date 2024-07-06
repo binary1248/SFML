@@ -224,6 +224,80 @@ struct Shader::UniformBinder
 
 
 ////////////////////////////////////////////////////////////
+Shader::Shader(const std::filesystem::path& filename, Type type)
+{
+    if (!loadFromFile(filename, type))
+        throw std::runtime_error("Failed to load shader from file");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(const std::filesystem::path& vertexShaderFilename, const std::filesystem::path& fragmentShaderFilename)
+{
+    if (!loadFromFile(vertexShaderFilename, fragmentShaderFilename))
+        throw std::runtime_error("Failed to load shader from files");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(const std::filesystem::path& vertexShaderFilename,
+               const std::filesystem::path& geometryShaderFilename,
+               const std::filesystem::path& fragmentShaderFilename)
+{
+    if (!loadFromFile(vertexShaderFilename, geometryShaderFilename, fragmentShaderFilename))
+        throw std::runtime_error("Failed to load shader from files");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(std::string_view shader, Type type)
+{
+    if (!loadFromMemory(shader, type))
+        throw std::runtime_error("Failed to load shader from memory");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(std::string_view vertexShader, std::string_view fragmentShader)
+{
+    if (!loadFromMemory(vertexShader, fragmentShader))
+        throw std::runtime_error("Failed to load shader from memory");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(std::string_view vertexShader, std::string_view geometryShader, std::string_view fragmentShader)
+{
+    if (!loadFromMemory(vertexShader, geometryShader, fragmentShader))
+        throw std::runtime_error("Failed to load shader from memory");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(InputStream& stream, Type type)
+{
+    if (!loadFromStream(stream, type))
+        throw std::runtime_error("Failed to load shader from stream");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(InputStream& vertexShaderStream, InputStream& fragmentShaderStream)
+{
+    if (!loadFromStream(vertexShaderStream, fragmentShaderStream))
+        throw std::runtime_error("Failed to load shader from streams");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(InputStream& vertexShaderStream, InputStream& geometryShaderStream, InputStream& fragmentShaderStream)
+{
+    if (!loadFromStream(vertexShaderStream, geometryShaderStream, fragmentShaderStream))
+        throw std::runtime_error("Failed to load shader from streams");
+}
+
+
+////////////////////////////////////////////////////////////
 Shader::~Shader()
 {
     const TransientContextLock lock;
@@ -1077,6 +1151,74 @@ int Shader::getUniformLocation(const std::string& name)
 
 namespace sf
 {
+////////////////////////////////////////////////////////////
+Shader::Shader(const std::filesystem::path& /* filename */, Type /* type */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(const std::filesystem::path& /* vertexShaderFilename */,
+               const std::filesystem::path& /* fragmentShaderFilename */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(const std::filesystem::path& /* vertexShaderFilename */,
+               const std::filesystem::path& /* geometryShaderFilename */,
+               const std::filesystem::path& /* fragmentShaderFilename */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(std::string_view /* shader */, Type /* type */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(std::string_view /* vertexShader */, std::string_view /* fragmentShader */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(std::string_view /* vertexShader */, std::string_view /* geometryShader */, std::string_view /* fragmentShader */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(InputStream& /* stream */, Type /* type */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(InputStream& /* vertexShaderStream */, InputStream& /* fragmentShaderStream */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
+////////////////////////////////////////////////////////////
+Shader::Shader(InputStream& /* vertexShaderStream */,
+               InputStream& /* geometryShaderStream */,
+               InputStream& /* fragmentShaderStream */)
+{
+    throw std::runtime_error("Failed to load shader");
+}
+
+
 ////////////////////////////////////////////////////////////
 Shader::~Shader() = default;
 

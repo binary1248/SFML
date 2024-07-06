@@ -110,6 +110,30 @@ Image::Image(const Vector2u& size, const std::uint8_t* pixels)
 
 
 ////////////////////////////////////////////////////////////
+Image::Image(const std::filesystem::path& filename)
+{
+    if (!loadFromFile(filename))
+        throw std::runtime_error("Failed to open image from file");
+}
+
+
+////////////////////////////////////////////////////////////
+Image::Image(const void* data, std::size_t size)
+{
+    if (!loadFromMemory(data, size))
+        throw std::runtime_error("Failed to open image from memory");
+}
+
+
+////////////////////////////////////////////////////////////
+Image::Image(InputStream& stream)
+{
+    if (!loadFromStream(stream))
+        throw std::runtime_error("Failed to open image from stream");
+}
+
+
+////////////////////////////////////////////////////////////
 void Image::resize(const Vector2u& size, const Color& color)
 {
     if (size.x && size.y)

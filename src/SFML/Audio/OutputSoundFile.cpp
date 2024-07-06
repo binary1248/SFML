@@ -37,6 +37,17 @@
 namespace sf
 {
 ////////////////////////////////////////////////////////////
+OutputSoundFile::OutputSoundFile(const std::filesystem::path&     filename,
+                                 unsigned int                     sampleRate,
+                                 unsigned int                     channelCount,
+                                 const std::vector<SoundChannel>& channelMap)
+{
+    if (!openFromFile(filename, sampleRate, channelCount, channelMap))
+        throw std::runtime_error("Failed to open output sound file");
+}
+
+
+////////////////////////////////////////////////////////////
 bool OutputSoundFile::openFromFile(const std::filesystem::path&     filename,
                                    unsigned int                     sampleRate,
                                    unsigned int                     channelCount,

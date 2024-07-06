@@ -121,6 +121,30 @@ struct Font::FontHandles
 
 
 ////////////////////////////////////////////////////////////
+Font::Font(const std::filesystem::path& filename)
+{
+    if (!openFromFile(filename))
+        throw std::runtime_error("Failed to open font from file");
+}
+
+
+////////////////////////////////////////////////////////////
+Font::Font(const void* data, std::size_t sizeInBytes)
+{
+    if (!openFromMemory(data, sizeInBytes))
+        throw std::runtime_error("Failed to open font from memory");
+}
+
+
+////////////////////////////////////////////////////////////
+Font::Font(InputStream& stream)
+{
+    if (!openFromStream(stream))
+        throw std::runtime_error("Failed to open font from stream");
+}
+
+
+////////////////////////////////////////////////////////////
 bool Font::openFromFile(const std::filesystem::path& filename)
 {
 #ifndef SFML_SYSTEM_ANDROID

@@ -65,6 +65,30 @@ Music::Music() : m_impl(std::make_unique<Impl>())
 
 
 ////////////////////////////////////////////////////////////
+Music::Music(const std::filesystem::path& filename) : Music()
+{
+    if (!openFromFile(filename))
+        throw std::runtime_error("Failed to open music from file");
+}
+
+
+////////////////////////////////////////////////////////////
+Music::Music(const void* data, std::size_t sizeInBytes) : Music()
+{
+    if (!openFromMemory(data, sizeInBytes))
+        throw std::runtime_error("Failed to open music from memory");
+}
+
+
+////////////////////////////////////////////////////////////
+Music::Music(InputStream& stream) : Music()
+{
+    if (!openFromStream(stream))
+        throw std::runtime_error("Failed to open music from stream");
+}
+
+
+////////////////////////////////////////////////////////////
 Music::~Music()
 {
     // We must stop before destroying the file

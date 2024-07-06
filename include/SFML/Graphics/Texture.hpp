@@ -97,6 +97,174 @@ public:
     Texture& operator=(Texture&&) noexcept;
 
     ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from a file on disk
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param filename Path of the image file to load
+    /// \param sRgb     True to enable sRGB conversion, false to disable it
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromMemory, loadFromStream, loadFromImage
+    ///
+    ////////////////////////////////////////////////////////////
+    explicit Texture(const std::filesystem::path& filename, bool sRgb = false);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from a sub-rectangle of a file on disk
+    ///
+    /// The \a area argument can be used to load only a sub-rectangle
+    /// of the whole image. If you want the entire image then leave
+    /// the default value (which is an empty IntRect).
+    /// If the \a area rectangle crosses the bounds of the image, it
+    /// is adjusted to fit the image size.
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param filename Path of the image file to load
+    /// \param sRgb     True to enable sRGB conversion, false to disable it
+    /// \param area     Area of the image to load
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromMemory, loadFromStream, loadFromImage
+    ///
+    ////////////////////////////////////////////////////////////
+    Texture(const std::filesystem::path& filename, bool sRgb, const IntRect& area);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from a file in memory
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param data Pointer to the file data in memory
+    /// \param size Size of the data to load, in bytes
+    /// \param sRgb True to enable sRGB conversion, false to disable it
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromFile, loadFromStream, loadFromImage
+    ///
+    ////////////////////////////////////////////////////////////
+    Texture(const void* data, std::size_t size, bool sRgb = false);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from a sub-rectangle of a file in memory
+    ///
+    /// The \a area argument can be used to load only a sub-rectangle
+    /// of the whole image. If you want the entire image then leave
+    /// the default value (which is an empty IntRect).
+    /// If the \a area rectangle crosses the bounds of the image, it
+    /// is adjusted to fit the image size.
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param data Pointer to the file data in memory
+    /// \param size Size of the data to load, in bytes
+    /// \param sRgb True to enable sRGB conversion, false to disable it
+    /// \param area Area of the image to load
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromFile, loadFromStream, loadFromImage
+    ///
+    ////////////////////////////////////////////////////////////
+    Texture(const void* data, std::size_t size, bool sRgb, const IntRect& area);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from a custom stream
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param stream Source stream to read from
+    /// \param sRgb   True to enable sRGB conversion, false to disable it
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromFile, loadFromMemory, loadFromImage
+    ///
+    ////////////////////////////////////////////////////////////
+    explicit Texture(InputStream& stream, bool sRgb = false);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from a sub-rectangle of a custom stream
+    ///
+    /// The \a area argument can be used to load only a sub-rectangle
+    /// of the whole image. If you want the entire image then leave
+    /// the default value (which is an empty IntRect).
+    /// If the \a area rectangle crosses the bounds of the image, it
+    /// is adjusted to fit the image size.
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param stream Source stream to read from
+    /// \param sRgb   True to enable sRGB conversion, false to disable it
+    /// \param area   Area of the image to load
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromFile, loadFromMemory, loadFromImage
+    ///
+    ////////////////////////////////////////////////////////////
+    Texture(InputStream& stream, bool sRgb, const IntRect& area);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from an image
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param image Image to load into the texture
+    /// \param sRgb  True to enable sRGB conversion, false to disable it
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromFile, loadFromMemory
+    ///
+    ////////////////////////////////////////////////////////////
+    explicit Texture(const Image& image, bool sRgb = false);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture from a sub-rectangle of an image
+    ///
+    /// The \a area argument is used to load only a sub-rectangle
+    /// of the whole image.
+    /// If the \a area rectangle crosses the bounds of the image, it
+    /// is adjusted to fit the image size.
+    ///
+    /// The maximum size for a texture depends on the graphics
+    /// driver and can be retrieved with the getMaximumSize function.
+    ///
+    /// \param image Image to load into the texture
+    /// \param sRgb  True to enable sRGB conversion, false to disable it
+    /// \param area  Area of the image to load
+    ///
+    /// \throws std::runtime_error if loading was unsuccessful
+    ///
+    /// \see loadFromFile, loadFromMemory
+    ///
+    ////////////////////////////////////////////////////////////
+    Texture(const Image& image, bool sRgb, const IntRect& area);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct the texture with a given size
+    ///
+    /// \param size Width and height of the texture
+    /// \param sRgb True to enable sRGB conversion, false to disable it
+    ///
+    /// \throws std::runtime_error if construction was unsuccessful
+    ///
+    ////////////////////////////////////////////////////////////
+    explicit Texture(const Vector2u& size, bool sRgb = false);
+
+    ////////////////////////////////////////////////////////////
     /// \brief Resize the texture
     ///
     /// If this function fails, the texture is left unchanged.

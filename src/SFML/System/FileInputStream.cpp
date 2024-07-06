@@ -48,6 +48,14 @@ FileInputStream::FileInputStream() = default;
 
 
 ////////////////////////////////////////////////////////////
+FileInputStream::FileInputStream(const std::filesystem::path& filename)
+{
+    if (!open(filename))
+        throw std::runtime_error("Failed to open file input stream");
+}
+
+
+////////////////////////////////////////////////////////////
 FileInputStream::~FileInputStream() = default;
 
 

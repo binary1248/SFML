@@ -44,6 +44,14 @@ RenderTexture::RenderTexture() = default;
 
 
 ////////////////////////////////////////////////////////////
+RenderTexture::RenderTexture(const Vector2u& size, const ContextSettings& settings)
+{
+    if (!resize(size, settings))
+        throw std::runtime_error("Failed to create render texture");
+}
+
+
+////////////////////////////////////////////////////////////
 RenderTexture::~RenderTexture() = default;
 
 
